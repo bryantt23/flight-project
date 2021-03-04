@@ -22,6 +22,31 @@ class Passenger {
   }
 }
 
+class Flight {
+  constructor(flightNumber, capacity) {
+    this.flightNumber = flightNumber;
+    this.capacity = capacity;
+    this.passengers = [];
+  }
+
+  isFull() {
+    return this.passengers.length === this.capacity;
+  }
+
+  boardPassenger(passenger) {
+    if (!this.isFull() && passenger.hasFlight(this.flightNumber)) {
+      this.passengers.push(passenger);
+      return true;
+    }
+    return false;
+  }
+
+  listPassengers() {
+    return this.passengers.map(p => p.name);
+  }
+}
+
+/*
 const passenger = new Passenger('John');
 console.log(JSON.stringify(passenger));
 passenger.name = 'Jane';
@@ -38,3 +63,26 @@ passenger.addFlight('aa128');
 console.log(JSON.stringify(passenger));
 passenger.addFlight('AA128');
 console.log(JSON.stringify(passenger));
+*/
+
+let flight = new Flight('AA128', 4);
+console.log(JSON.stringify(flight));
+
+let passenger_1 = new Passenger('Rose');
+passenger_1.addFlight('AA128');
+
+let passenger_2 = new Passenger('Jesse');
+passenger_2.addFlight('XYZ32');
+
+let passenger_3 = new Passenger('Trevor');
+passenger_3.addFlight('AA128');
+
+flight.boardPassenger(passenger_1);
+flight.boardPassenger(passenger_1);
+flight.boardPassenger(passenger_1);
+flight.boardPassenger(passenger_1);
+flight.boardPassenger(passenger_1);
+flight.boardPassenger(passenger_2);
+console.log(JSON.stringify(flight));
+
+console.log(flight.listPassengers());
